@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <Title>
+            Welcome!
+        </Title>
+        <style>
+            h1 {
+                text-align: center;
+                text-shadow: 1pc;
+                font-size: 40px;
+            }
+            .container{  
+                text-align: center;      
+                padding-top: 100px;  
+            }  
+            button {  
+                font-size: 25px;
+                margin-right: 25px;
+            } 
+        </style>
+         <script>
+
+
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('button').forEach(button => {
+                    button.onclick = function() {
+                        const section = this.dataset.section
+                        if(section == 'create')
+                        create()
+                        else if(section == 'vote')
+                        vote()
+                    }
+                })
+             })
+
+            function create() {
+                document.querySelector('#content')
+                .innerHTML = "<h1>create</h1>\
+                            <select name= 'drop' id='drop' onchange='droplist()' >\
+                            </select>\
+                            <div id='input'></div>"
+
+                for (y = 1; y <=12; y++) {
+                    document.getElementById("drop").innerHTML += ("<option value =" + y + ">" + y + "</option>");
+                    }
+                }
+                function droplist() {
+                    const x = document.querySelector('select').value;
+                    document.querySelector('#input').innerHTML = ""
+                    for(y = 1; y<= x; y++) {
+                        document.querySelector('#input').innerHTML += ("<input placeholder =option " + y + "><br>");
+                    }
+                
+                 }
+
+
+            function vote() {
+                document.querySelector('#content')
+                .innerHTML = "<h1>vote</h1>"
+            }
+
+        </script>
+    </head>
+    <body>
+        <h1>Here's your Vote!</h1>
+        <div class="container">
+            <button data-section="create">Create new!</button>
+            <button data-section="vote">Vote</button>
+        </div>
+        <div id="content"></div>
+    </body>
+</html>

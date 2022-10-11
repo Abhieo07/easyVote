@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <Title>
+            Welcome!
+        </Title>
+    </head>
+    <body>
+        <h1>Professional Details!</h1>
+        <div>
+            <style>
+                h5{
+                    color: red;
+                }
+            </style>
+            {% for message in messages %}
+            <h5>{{message}}</h5>
+            {% endfor %}
+        </div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" name="firstname" placeholder="First Name" style="border: 1px solid #d3d5d8 !important;">
+            <input type="text" name="lastname" placeholder="Last Name" style="border: 1px solid #d3d5d8 !important;"><br>
+            <input type="date" name="age" placeholder="Age" style="border: 1px solid #d3d5d8 !important;">
+            <input type="radio" name="gender" value="Male">Male</inpu>
+            <input type="radio" name="gender" value="Female">Female</inpu>
+            <input type="radio" name="gender" value="Prefer not to say">Prefer not to say</inpu>
+            <input type="text" name="department" value="CMPN"
+            selectBoxOptions="INFT;EXRC;EXCS" style="border: 1px solid #d3d5d8 !important;">Department</input><br>
+            <label for="vote">Select your vote</label>
+            <select id="person" name="person">
+                {% for option in options %}
+                <option id="selected" style="border: 1px solid #d3d5d8 !important;">{{ option.opt }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Submit</button>
+        </form>
+    </body>
+</html>

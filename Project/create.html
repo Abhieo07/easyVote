@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>project</title>
+    </head>
+    <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        for (y = 1; y <=12; y++) {
+        document.getElementById("drop").innerHTML += ("<option value =" + y + ">" + y + "</option>");
+        }
+    })
+
+    function droplist() {
+        const x = document.querySelector('select').value;
+        document.querySelector('#input').innerHTML = ""
+        for(y = 1; y<= x; y++) {
+            document.querySelector('#input').innerHTML += ("<input placeholder =option " + y + "><br>");
+        }
+        
+    }
+
+    </script>
+    <body>
+        <h1>Project Vote</h1>
+        <input type="text" placeholder="Project Name">
+        <select name= "drop" id="drop" onchange="droplist()" >
+        </select>
+        <div id="input"></div>
+    </body>
+</html>

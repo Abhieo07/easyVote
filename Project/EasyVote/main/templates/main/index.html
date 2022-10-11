@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <Title>
+            Welcome!
+        </Title>
+        <style>
+            h1 {
+                text-align: center;
+                text-shadow: 1pc;
+                font-size: 40px;
+            }
+            .container{  
+                text-align: center;      
+                padding-top: 100px;  
+            }  
+            button {  
+                font-size: 25px;
+                margin-right: 25px;
+                margin-top: 25px;
+            } 
+        </style>
+         <script>
+
+            window.onpopstate = function(event) {
+                console.log(event.state.section)
+                showSection(event.state.section)
+            }
+
+            function showSection(section) {
+
+                fetch(`/${section}`)
+                .then(response => response.text())
+                .then(text => {
+                    if(section == "create")
+                    create();
+                    else if(section == "vote")
+                    vote();
+                    else
+                    document.querySelector('#content').innerHTML = "";
+                    
+                });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('button').forEach(button => {
+                    button.onclick = function() {
+                        const section = this.dataset.section
+                        history.pushState({section: section}, "Single Page App", `${section}`)
+                        showSection(section);
+                    }
+                })
+            })
+
+            function create() {
+                document.querySelector('#content')
+                .innerHTML = "\
+                            <input name ='projectname' id='name' type='text' placeholder='name'>\
+                            \
+                            <input name ='discription' id='discription' type='text' placeholder='discription'>\
+                            <select name ='no_of_choices' id='drop' onchange='droplist()''></select>\
+                            <div id='input' name ='input'></div>\
+                            <button id='generate' onclick='random()' > Generate </button>\
+                            <div id='code'></div>\
+                            \
+                            "
+
+                for (y = 1; y <=12; y++) {
+                    document.getElementById("drop").innerHTML += ("<option value =" + y + ">" + y + "</option>");
+                    }
+                }
+                function droplist() {
+                    const x = document.querySelector('select').value;
+                    document.querySelector('#input').innerHTML = ""
+                    for(y = 1; y<= x; y++) {
+                        document.querySelector('#input').innerHTML += ("<input name = 'option" + y +"' placeholder ='option" + y +"'><br>");
+                    }
+
+            }
+
+
+            function vote() {
+                document.querySelector('#content')
+                .innerHTML = "\
+                              <input type='text' name='projectname' placeholder='Project name'>\
+                              <input type='text' name='generated_code' placeholder='code'>\
+                              <button name='vote' id='vote'>Vote</button>"
+            }
+
+            function random() {
+                
+                document.querySelector('#code').innerHTML = "<h2>{{ code }}</h2>"
+            }
+
+        </script>
+    </head>
+    <body>
+        <h1>Here's your Vote!</h1>
+        <div class="container">
+            <button data-section="create">Create new!</button>
+            <button data-section="vote">Vote</button>
+        </div>
+        {% for message in messages %}
+        <h5>{{ message }}</h5>
+        {% endfor %}
+        <form action='' method='POST'>
+            {% csrf_token %}
+            <div id="content"></div>
+        </form>   
+    </body>
+</html>

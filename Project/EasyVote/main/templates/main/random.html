@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Random</title>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                
+                const random = Math.floor(Math.random() * 100000)
+                alert("Your Generated code is " + `${random}`)
+                document.querySelector('h1').innerHTML = random
+            }) 
+        </script>
+    </head>
+    <body>
+        <h1></h1>
+    </body>
+</html>
